@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import NewHealthLogDialog from "../components/NewHealthLogDialog";
 import ViewHealthCard from "../components/ViewHealthCard";
-import { HealthLogsApi } from "../api/HealthLogsApi";
+import { HealthLogsApi } from "../api/healthLogsApi";
 import { useUser } from "@clerk/clerk-react";
 
 export default function HealthLogsDashboard({ conditionId }) {

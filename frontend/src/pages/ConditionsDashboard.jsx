@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import NewConditionCard from "../components/NewConditionCard";
 import ViewConditionCard from "@/components/ViewConditionCard";
-import {ConditionsApi} from "../api/ConditionsApi";
+import {ConditionsApi} from "../api/conditionsApi";
 import { useUser } from "@clerk/clerk-react";
 
 export default function Dashboard({ frontendUserId }) {

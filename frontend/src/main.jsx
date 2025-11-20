@@ -3,16 +3,17 @@ import { createRoot } from "react-dom/client";
 import "./index.css";
 import App from "./App.jsx";
 import { ClerkProvider } from "@clerk/clerk-react";
+import { ThemeProvider } from "./context/Theme";
 
 // Import your Publishable Key
-const pk = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY
+const pk = import.meta.env.VITE_CLERK_PUBLISHABLE_KEY;
 
 createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ClerkProvider publishableKey={pk}>
-      <App />
+      <ThemeProvider>
+        <App />
+      </ThemeProvider>
     </ClerkProvider>
   </StrictMode>
 );
-
-

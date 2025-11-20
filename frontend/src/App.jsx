@@ -5,6 +5,7 @@ import MainDashboard from "./pages/MainDashboard";
 import DashboardLayout from "./layouts/DashboardLayout";
 import Footer from "./components/Footer";
 import { MdMonitorHeart } from "react-icons/md";
+import HealthAndWellness from "./images/Health & Wellness.jpg";
 import {
   SignedIn,
   SignedOut,
@@ -140,41 +141,51 @@ export default function App() {
               </div>
 
               {/* Elevated card */}
-              <div
-                className={`max-w-md w-full text-center relative z-10 p-8 rounded-2xl border ${
-                  darkMode
-                    ? "bg-gray-800 border-gray-600 shadow-2xl"
-                    : "bg-white border-gray-200 shadow-2xl"
-                }`}
-              >
-                <div className="flex gap-4 items-center align-center justify-center">
-                  <MdMonitorHeart className="text-red-500 w-10 h-10" />
-                  <h1 className="sm:text-3xl font-bold-medium text-red-600">
-                    LifeTrack
-                  </h1>
+              <div className="min-h-[calc(100vh-80px)] flex shadow-2xl rounded-lg overflow-hidden w-full">
+                {/* Left Image */}
+                <div className="w-1/3 hidden md:block">
+                  <img
+                    src={HealthAndWellness}
+                    alt="Health and Wellness"
+                    className="w-full h-full object-cover"
+                  />
                 </div>
 
-                <h2 className="text-xl sm:text-3xl font-semibold mt-4">
-                  Welcome back! Sign in to track your health, link logs to
-                  conditions, and gain actionable insights.
-                </h2>
-                <p
-                  className={`text-lg mt-4 ${
-                    darkMode ? "text-gray-300" : "text-gray-700"
-                  } leading-relaxed`}
-                >
-                  Track Today, Thrive Tomorrow!!!
-                </p>
-                <SignInButton
-                  mode="modal"
-                  className={`mt-6 w-full py-4 rounded-4xl font-semibold text-lg transition-transform duration-300 transform hover:scale-105 ${
+                {/* Right Info Panel */}
+                <div
+                  className={`flex-1 flex flex-col justify-center items-center p-8 ${
                     darkMode
-                      ? "bg-green-700 text-white hover:bg-green-800"
-                      : "bg-green-600 text-white hover:bg-green-700"
+                      ? "bg-gray-900 text-gray-100"
+                      : "bg-slate-50 text-gray-900"
                   }`}
                 >
-                  Track My Health
-                </SignInButton>
+                  <div className="max-w-md w-full text-center">
+                    <h1 className="text-5xl sm:text-6xl font-extrabold text-green-600 mb-4">
+                      LifeTrack
+                    </h1>
+                    <h2 className="text-2xl sm:text-3xl font-semibold mb-4">
+                      Welcome back! Sign in to track your health, link logs to
+                      conditions, and gain actionable insights.
+                    </h2>
+                    <p
+                      className={`text-lg mb-6 ${
+                        darkMode ? "text-gray-300" : "text-gray-700"
+                      } leading-relaxed`}
+                    >
+                      Track Today, Thrive Tomorrow!!!
+                    </p>
+                    <SignInButton
+                      mode="modal"
+                      className={`w-full py-4 rounded-4xl font-semibold text-lg transition-transform duration-300 transform hover:scale-105 ${
+                        darkMode
+                          ? "bg-green-700 text-white hover:bg-green-800"
+                          : "bg-green-600 text-white hover:bg-green-700"
+                      }`}
+                    >
+                      Track My Health
+                    </SignInButton>
+                  </div>
+                </div>
               </div>
             </div>
           )}

@@ -2,23 +2,30 @@ import { useState, useEffect } from "react";
 import NewHealthLogDialog from "../components/NewHealthLogDialog";
 import ViewHealthCard from "../components/ViewHealthCard";
 import { HealthLogsApi } from "../api/healthLogsApi";
+import { ConditionsApi } from "../api/conditionsApi"; // <-- make sure this exists
 import { useUser } from "@clerk/clerk-react";
 
 export default function HealthLogsDashboard({ conditionId }) {
   const { user } = useUser();
   const [logs, setLogs] = useState([]);
+  const [conditions, setConditions] = useState([]);
   const [status, setStatus] = useState("idle");
   const [error, setError] = useState("");
 
-  // Load health logs for this user (and optionally condition)
+  // Load health logs and conditions
   useEffect(() => {
     if (!user) return;
 
     (async () => {
       try {
         setStatus("loading");
-        const data = await HealthLogsApi.list(user.id, conditionId);
-        setLogs(data);
+
+        const logsData = await HealthLogsApi.list(user.id, conditionId);
+        setLogs(logsData);
+
+        const conditionsData = await ConditionsApi.list(user.id);
+        setConditions(conditionsData);
+
         setStatus("success");
       } catch (err) {
         setError(err.message);
@@ -32,7 +39,7 @@ export default function HealthLogsDashboard({ conditionId }) {
     const created = await HealthLogsApi.create({
       ...payload,
       userId: user.id,
-      conditionId,
+      conditionId: payload.conditionId || null,
     });
     setLogs((prev) => [created, ...prev]);
   }
@@ -55,7 +62,7 @@ export default function HealthLogsDashboard({ conditionId }) {
         <h2 className="text-xl font-bold">
           {user ? `${user.firstName}'s Health Logs` : "Health Logs"}
         </h2>
-        <NewHealthLogDialog onCreate={createLog} />
+        <NewHealthLogDialog onCreate={createLog} conditions={conditions} />
       </div>
 
       {status === "loading" && <p>Loading health logs…</p>}
@@ -71,6 +78,7 @@ export default function HealthLogsDashboard({ conditionId }) {
             log={log}
             onSave={saveLog}
             onDelete={deleteLog}
+            conditions={conditions}
           />
         ))}
       </div>

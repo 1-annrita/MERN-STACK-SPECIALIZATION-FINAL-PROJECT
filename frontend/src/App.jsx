@@ -1,49 +1,99 @@
-// import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
 import Dashboard from "./pages/Dashboard";
-import { SignedIn, SignedOut, SignInButton, UserButton, useUser } from "@clerk/clerk-react";
+import DashboardLayout from "./layouts/DashboardLayout";
 import Footer from "./components/Footer";
+import { SignedIn, SignedOut, SignInButton, UserButton, useUser } from "@clerk/clerk-react";
 
 export default function App() {
-    const { user } = useUser();
+  const { user, isLoaded } = useUser();
+
+  if (!isLoaded) return null; // Wait for Clerk to load
+
   return (
-     <div className="min-h-screen bg-slate-50 flex flex-col">
-      <header className="bg-white border-b">
-        <div className="mx-auto max-w-5xl p-4 flex items-center justify-between">
-          <div>
+    <BrowserRouter>
+      <div className="min-h-screen flex flex-col bg-slate-50">
+
+        {/* Header */}
+        <header className="bg-white border-b">
+          <div className="mx-auto max-w-5xl p-4 flex items-center justify-between">
             <h1 className="text-2xl font-bold">Chronic Conditions Monitoring App</h1>
-            {/* <p className="text-slate-600 text-sm">Express + MongoDB backend • React + Tailwind + Radix front-end • axios• clerk </p> */}
-          </div>
-          <div className="flex items-center gap-3">
-            <SignedOut>
-              <SignInButton mode="modal" className="cursor-pointer" />
-            </SignedOut>
-            <SignedIn>
-              <UserButton afterSignOutUrl="/"/>
-            </SignedIn>
-          </div>
-        </div>
-      </header>
-
-      <main className="py-6 flex-grow">
-        <div className="mx-auto max-w-5xl">
-          <SignedOut>
-            <div className="border rounded-xl bg-white p-6 text-center">
-              <h2 className="text-lg font-semibold mb-2">Welcome to our Chronic Conditions Monitoring App</h2>
-              <p className="text-slate-600">Please sign in to use our app</p>
+            <div className="flex items-center gap-3">
+              <SignedOut>
+                <SignInButton mode="modal" className="cursor-pointer" />
+              </SignedOut>
+              <SignedIn>
+                <UserButton afterSignOutUrl="/" />
+              </SignedIn>
             </div>
-          </SignedOut>
+          </div>
+        </header>
 
-          <SignedIn>
-            <Dashboard frontendUserId={user?.id} />
-          </SignedIn>
-        </div>
-      </main>
+        {/* Main */}
+        <main className="flex-grow">
+          {user ? (
+            // Routes for signed-in users
+            <Routes>
+              {/* Redirect root to dashboard */}
+              <Route path="/" element={<Navigate to="/dashboard" replace />} />
 
-      <footer className="bg-white border-t mt-auto">
-            <Footer />
-      </footer>
-    </div>
+              {/* Dashboard */}
+              <Route
+                path="/dashboard"
+                element={
+                  <DashboardLayout>
+                    <div className="p-4">Dashboard page coming soon</div>
+                  </DashboardLayout>
+                }
+              />
+
+              {/* Add Condition */}
+              <Route
+                path="/add-condition"
+                element={
+                  <DashboardLayout>
+                    <Dashboard frontendUserId={user.id} />
+                  </DashboardLayout>
+                }
+              />
+
+              {/* Logs */}
+              <Route
+                path="/logs"
+                element={
+                  <DashboardLayout>
+                    <div className="p-4">Health logs coming soon</div>
+                  </DashboardLayout>
+                }
+              />
+
+              {/* Reports */}
+              <Route
+                path="/reports"
+                element={
+                  <DashboardLayout>
+                    <div className="p-4">Reports coming soon</div>
+                  </DashboardLayout>
+                }
+              />
+            </Routes>
+          ) : (
+            // Signed-out welcome page
+            <div className="max-w-md mx-auto border rounded-xl bg-white p-6 text-center shadow-md mt-10">
+              <h2 className="text-lg font-semibold mb-2">Welcome</h2>
+              <p className="text-slate-600">Please sign in to use our app</p>
+              <SignInButton
+                mode="modal"
+                className="mt-4 inline-block bg-blue-600 text-white px-4 py-2 rounded hover:bg-blue-700"
+              >
+                Sign In
+              </SignInButton>
+            </div>
+          )}
+        </main>
+
+        {/* Footer */}
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
 }
-
-

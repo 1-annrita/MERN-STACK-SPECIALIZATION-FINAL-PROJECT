@@ -1,7 +1,7 @@
 import { useState, useEffect } from "react";
 import NewConditionCard from "../components/NewConditionCard";
 import ViewConditionCard from "@/components/ViewConditionCard";
-import {ConditionsApi} from "../api/api";
+import {ConditionsApi} from "../api/ConditionsApi";
 import { useUser } from "@clerk/clerk-react";
 
 export default function Dashboard({ frontendUserId }) {
@@ -53,7 +53,7 @@ export default function Dashboard({ frontendUserId }) {
 
       {status === "loading" && <p>Loading…</p>}
       {status === "error" && <p className="text-red-600">Error: {error}</p>}
-      {status === "success" && conditions.length === 0 && <p>No conditions yet. Create your first conditions!</p>}
+      {status === "success" && conditions.length === 0 && <p>No conditions yet. Create your first condition</p>}
 
       <div className="grid gap-3">
         {conditions.map(c => (

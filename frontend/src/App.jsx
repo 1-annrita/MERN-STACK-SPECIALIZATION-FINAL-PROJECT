@@ -1,5 +1,6 @@
 import { BrowserRouter, Routes, Route, Navigate } from "react-router-dom";
-import Dashboard from "./pages/Dashboard";
+import ConditionsDashboard from "./pages/ConditionsDashboard";
+import HealthLogsDashboard from "./pages/HealthLogsDashboard";
 import DashboardLayout from "./layouts/DashboardLayout";
 import Footer from "./components/Footer";
 import { SignedIn, SignedOut, SignInButton, UserButton, useUser } from "@clerk/clerk-react";
@@ -51,7 +52,7 @@ export default function App() {
                 path="/add-condition"
                 element={
                   <DashboardLayout>
-                    <Dashboard frontendUserId={user.id} />
+                    <ConditionsDashboard frontendUserId={user.id} />
                   </DashboardLayout>
                 }
               />
@@ -61,7 +62,7 @@ export default function App() {
                 path="/logs"
                 element={
                   <DashboardLayout>
-                    <div className="p-4">Health logs coming soon</div>
+                     <HealthLogsDashboard />
                   </DashboardLayout>
                 }
               />

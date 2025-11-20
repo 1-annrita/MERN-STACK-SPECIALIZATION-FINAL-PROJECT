@@ -1,22 +1,18 @@
-// import { Link } from "react-router-dom";
 import * as Dialog from "@radix-ui/react-dialog";
 import { Button } from "./ui/button";
 import { Input } from "./ui/input";
 import { Textarea } from "./ui/textarea";
 import { useState } from "react";
 
-export default function NewConditionDialog({
-  // condition,
-  onCreate,
-}) {
+export default function NewHealthLogDialog({ onCreate }) {
   const [open, setOpen] = useState(false);
-  const [form, setForm] = useState({ name: "", description: "" });
+  const [form, setForm] = useState({ type: "", value: "", note: "" });
 
   function submit(e) {
     e.preventDefault();
-    if (!form.name.trim()) return;
+    if (!form.type.trim() || !form.value.trim()) return; // Require type and value
     onCreate(form).then(() => {
-      setForm({ name: "", description: "" });
+      setForm({ type: "", value: "", note: "" });
       setOpen(false);
     });
   }
@@ -24,25 +20,30 @@ export default function NewConditionDialog({
   return (
     <Dialog.Root open={open} onOpenChange={setOpen}>
       <Dialog.Trigger asChild>
-        <Button>New Condition</Button>
+        <Button>New Health Log</Button>
       </Dialog.Trigger>
       <Dialog.Portal>
         <Dialog.Overlay className="fixed inset-0 bg-black/40" />
         <Dialog.Content className="fixed left-1/2 top-1/2 w-[95vw] max-w-lg -translate-x-1/2 -translate-y-1/2 rounded-xl bg-white p-4 shadow-xl">
           <Dialog.Title className="text-lg font-semibold mb-2">
-            Create Condition
+            Create Health Log
           </Dialog.Title>
           <form onSubmit={submit} className="space-y-3">
             <Input
-              placeholder="Name"
-              value={form.name}
-              onChange={(e) => setForm({ ...form, name: e.target.value })}
+              placeholder="Type (e.g., Blood Pressure)"
+              value={form.type}
+              onChange={(e) => setForm({ ...form, type: e.target.value })}
+            />
+            <Input
+              placeholder="Value (e.g., 120/80)"
+              value={form.value}
+              onChange={(e) => setForm({ ...form, value: e.target.value })}
             />
             <Textarea
-              rows={6}
-              placeholder="Description"
-              value={form.description}
-              onChange={(e) => setForm({ ...form, description: e.target.value })}
+              rows={4}
+              placeholder="Note (optional)"
+              value={form.note}
+              onChange={(e) => setForm({ ...form, note: e.target.value })}
             />
             <div className="flex gap-2">
               <Button type="submit">Create</Button>

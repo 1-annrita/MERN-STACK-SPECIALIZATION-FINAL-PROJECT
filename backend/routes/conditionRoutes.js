@@ -2,7 +2,7 @@ const express = require("express");
 const router = express.Router();
 const Condition = require("../models/Condition");
 
-// GET /api/conditions?userId=...  -> list (or all if no userId)
+// GET /api/conditions?userId
 router.get("/", async (req, res) => {
   try {
     const { userId } = req.query;

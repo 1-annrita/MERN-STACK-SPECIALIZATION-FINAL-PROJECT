@@ -1,9 +1,11 @@
 import { useState, useEffect } from "react";
+import { useUser } from "@clerk/clerk-react";
+
 import NewHealthLogDialog from "../components/NewHealthLogDialog";
 import ViewHealthCard from "../components/ViewHealthCard";
 import { HealthLogsApi } from "../api/healthLogsApi";
-import { ConditionsApi } from "../api/conditionsApi"; // <-- make sure this exists
-import { useUser } from "@clerk/clerk-react";
+import { ConditionsApi } from "../api/conditionsApi";
+
 
 export default function HealthLogsDashboard({ conditionId }) {
   const { user } = useUser();

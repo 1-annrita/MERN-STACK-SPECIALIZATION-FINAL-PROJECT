@@ -1,11 +1,13 @@
 import { useState, useEffect } from "react";
 import { Link } from "react-router-dom";
+import { useUser } from "@clerk/clerk-react";
+import { MdFavorite, MdAssignment, MdUpdate } from "react-icons/md";
+
 import NewHealthLogDialog from "../components/NewHealthLogDialog";
 import ViewHealthCard from "../components/ViewHealthCard";
 import { HealthLogsApi } from "../api/healthLogsApi";
 import { ConditionsApi } from "../api/conditionsApi";
-import { useUser } from "@clerk/clerk-react";
-import { MdFavorite, MdAssignment, MdUpdate } from "react-icons/md";
+
 
 export default function MainDashboard() {
   const { user } = useUser();

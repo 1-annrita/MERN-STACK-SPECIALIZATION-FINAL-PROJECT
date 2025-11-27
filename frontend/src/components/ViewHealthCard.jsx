@@ -22,11 +22,11 @@ export default function ViewHealthCard({ log, onSave, onDelete, conditions = [] 
         <div>
           {!editing ? (
             <>
-              <h3 className="text-lg font-semibold dark:text-white">{log.type}</h3>
+              <h3 className="text-lg font-semibold dark:text-white mb-4">{log.type}</h3>
               {conditionName && (
-                <p className="text-sm text-gray-500 dark:text-gray-400">
+                <h4 className="text-gray-500 dark:text-gray-400">
                   Condition: {conditionName}
-                </p>
+                </h4>
               )}
             </>
           ) : (
@@ -52,11 +52,17 @@ export default function ViewHealthCard({ log, onSave, onDelete, conditions = [] 
         )}
       </CardHeader>
 
-      <CardContent className="space-y-4">
+      <CardContent className="">
         {!editing ? (
-          <p className="text-slate-700 dark:text-slate-300 whitespace-pre-wrap">
-            {log.value} {log.note && `- ${log.note}`}
+          <div>
+            <p className="text-slate-700 dark:text-slate-300 whitespace-pre-wrap mb-4">
+            Value: {log.value} 
           </p>
+            <p className="text-slate-700 dark:text-slate-300 whitespace-pre-wrap mb-4">
+            Note: {log.note }
+          </p>
+          </div>
+          
         ) : (
           <form
             onSubmit={(e) => {

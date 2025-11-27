@@ -3,6 +3,7 @@ import ConditionsDashboard from "./pages/ConditionsDashboard";
 import HealthLogsDashboard from "./pages/HealthLogsDashboard";
 import MainDashboard from "./pages/MainDashboard";
 import DashboardLayout from "./layouts/DashboardLayout";
+import ReportsDashboard from "./pages/ReportsDashboard";
 import Footer from "./components/Footer";
 import { MdMonitorHeart } from "react-icons/md";
 import HealthAndWellness from "./images/Health & Wellness.jpg";
@@ -35,8 +36,9 @@ export default function App() {
             darkMode ? "bg-gray-800 border-gray-700" : "bg-white border-b"
           }`}
         >
-          <div className="mx-auto max-w-5xl p-4 flex items-center justify-between">
-            <h1 className="text-2xl font-bold">LifeTrack</h1>
+          <div className="mx-auto p-4 flex items-center justify-between">
+            {/* <h1 className="text-2xl font-bold">LifeTrack</h1> */}
+            <MdMonitorHeart className="text-red-500 w-10 h-10" />
             <div className="flex items-center gap-3">
               {/* Theme Toggle */}
               <div
@@ -118,7 +120,7 @@ export default function App() {
                         darkMode ? "bg-gray-800 text-gray-100" : "bg-white"
                       }`}
                     >
-                      Reports coming soon ...
+                      <ReportsDashboard/>
                     </div>
                   </DashboardLayout>
                 }
@@ -161,7 +163,7 @@ export default function App() {
                 >
                   <div className="max-w-md w-full text-center">
                     <h1 className="text-5xl sm:text-6xl font-extrabold text-green-600 mb-4">
-                      LifeTrack
+                      LifeTrack App
                     </h1>
                     <h2 className="text-2xl sm:text-3xl font-semibold mb-4">
                       Welcome back! Sign in to track your health, link logs to

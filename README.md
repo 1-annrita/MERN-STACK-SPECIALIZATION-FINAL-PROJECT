@@ -162,6 +162,36 @@ A full-stack health tracking application built with **MongoDB, Express.js, React
 
 
 
+## 📦 API Endpoints (Backend)
+
+### Conditions
+
+```
+
+| Method | Endpoint                          | Description                                            |
+| ------ | --------------------------------- | ------------------------------------------------------ |
+| GET    | `/api/conditions?userId={userId}` | Fetch all conditions for a user                        |
+| POST   | `/api/conditions`                 | Create a new condition (payload must include `userId`) |
+| PUT    | `/api/conditions/{id}`            | Update a condition by ID                               |
+| DELETE | `/api/conditions/{id}`            | Delete a condition by ID                               |
+
+```
+
+### Health Logs
+
+```
+| Method | Endpoint                          | Description                                            |
+| ------ | --------------------------------- | ------------------------------------------------------ |
+| GET    | `/api/healthlogs?userId={userId}	 | Fetch health logs, optionally filtered by user         |
+		 |	&conditionId={conditionId}	`	 |& condition											  |
+		 |									 |														  |
+| POST   | `/api/healthlogs`                 | Create a new health log								  |
+| PUT    | `/api/healthlogs/{id}`            | Update a health log by ID                              |
+| DELETE | `/api/healthlogs/{id}`            | Delete a health log by ID                              |
+
+```
+
+
 ## 📂 Project Structure (Frontend / Backend)
 
 ### Backend
@@ -258,9 +288,9 @@ A full-stack health tracking application built with **MongoDB, Express.js, React
 
 ## 🌐 Live Demo
 
-Deployed at Netflify
+Deployed at Render for BE & Vercel for FE:
 
-    🔗 Live Demo: 
+    🔗 LifeTrack App: https://mern-stack-specialization-final-pro.vercel.app/
 
 
 ## 🙌 Author
@@ -293,7 +323,8 @@ AnnRita Mukami Gitonga
 
 2. Install Backend Dependencies:
 
-	npm i express mongoose dotenv cors  bcryptjs
+	npm i express mongoose dotenv cors  express-validator
+
 
 	
 3. Install devDependencies:
